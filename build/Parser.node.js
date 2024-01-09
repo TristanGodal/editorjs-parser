@@ -44,34 +44,36 @@ const embedMarkups = {
 };
 
 var defaultParsers = {
-    paragraph: function(data, config) {
-        return `<p class="${config.paragraph.pClass}"> ${data.text} </p>`;
-    },
+  paragraph: function (data, config) {
+    return `<p class="${config.paragraph.pClass} ${
+      !!data.alignment ? "text-" + data.alignment : ""
+    }"> ${data.text} </p>`;
+  },
 
-    header: function(data) {
-        return `<h${data.level}>${data.text}</h${data.level}>`;
-    },
+  header: function (data) {
+    return `<h${data.level}>${data.text}</h${data.level}>`;
+  },
 
-    list: function(data) {
-        const type = data.style === "ordered" ? "ol" : "ul";
-        const items = data.items.reduce(
-            (acc, item) => acc + `<li>${item}</li>`,
-            ""
-        );
-        return `<${type}>${items}</${type}>`;
-    },
+  list: function (data) {
+    const type = data.style === "ordered" ? "ol" : "ul";
+    const items = data.items.reduce(
+      (acc, item) => acc + `<li>${item}</li>`,
+      ""
+    );
+    return `<${type}>${items}</${type}>`;
+  },
 
-    quote: function(data, config) {
-        let alignment = "";
-        if (config.quote.applyAlignment) {
-            alignment = `style="text-align: ${data.alignment};"`;
-        }
-        return `<blockquote ${alignment}><p>${data.text}</p><cite>${data.caption}</cite></blockquote>`;
-    },
+  quote: function (data, config) {
+    let alignment = "";
+    if (config.quote.applyAlignment) {
+      alignment = `style="text-align: ${data.alignment};"`;
+    }
+    return `<blockquote ${alignment}><p>${data.text}</p><cite>${data.caption}</cite></blockquote>`;
+  },
 
-    table: function(data) {
-            const rows = data.content.map((row) => {
-                        return `<tr>${row.reduce(
+  table: function (data) {
+    const rows = data.content.map((row) => {
+      return `<tr>${row.reduce(
         (acc, cell) => acc + `<td>${cell}</td>`,
         ""
       )}</tr>`;
