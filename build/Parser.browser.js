@@ -47,7 +47,7 @@ var edjsParser = function () {
   };
   var defaultParsers = {
     paragraph: function paragraph(data, config) {
-      return "<p class=\"".concat(config.paragraph.pClass, " ").concat(!!data.alignment ? "text-" + data.alignment : "", "\"> ").concat(data.text, " </p>");
+      return "<p class=\"".concat(config.paragraph.pClass, "\" style=\"text-align: ").concat(data.alignment || "left", "; color: ").concat(data.color || "inherit", "; font-size: ").concat(data.fontSize || "inherit", "\"> ").concat(data.text, " </p>");
     },
     header: function header(data) {
       return "<h".concat(data.level, ">").concat(data.text, "</h").concat(data.level, ">");

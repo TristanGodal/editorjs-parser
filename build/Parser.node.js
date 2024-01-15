@@ -45,8 +45,10 @@ const embedMarkups = {
 
 var defaultParsers = {
   paragraph: function (data, config) {
-    return `<p class="${config.paragraph.pClass} ${
-      !!data.alignment ? "text-" + data.alignment : ""
+    return `<p class="${config.paragraph.pClass}" style="text-align: ${
+      data.alignment || "left"
+    }; color: ${data.color || "inherit"}; font-size: ${
+      data.fontSize || "inherit"
     }"> ${data.text} </p>`;
   },
 
